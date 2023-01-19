@@ -1,0 +1,66 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'radio/test.css' %}">
+<h1>Studio de Radio Londres</h1>
+<h2>La radio qui parle aux Français.</h2>
+<h3>Message Courant : </h3>
+<h4> {{ message_courant }} </h4>
+
+<form id="diffuse" method="POST">
+{% csrf_token %}
+<input class="autre" type="submit" name="diffuse" value="Diffuser le message courant sur tous les postes" />
+</form>
+
+<div class="container">
+<form class="item" method="POST" >
+    {% csrf_token %} <!-- intègre template csrf_token pour protéger formulaire des attaques -->
+    <p><strong> Pour ajouter un message : </strong></p>
+    <p>Résistant :</p>
+    <select class="button" id="resistant" name="resistant">
+        {% for resistant in liste_resistants %}
+             <option class="button" value="{{resistant.pseudo}}">{{resistant.pseudo}}</option>
+        {% endfor %}
+    </select>
+    <p>Message:</p>
+    <textarea text="message" class="button" name="message" autocomplete="off" cols="70" rows="3" ></textarea>
+    <br></br>
+    <input class="button cursor" type="submit" name="add_message" value="Ajouter le message" />
+</form>
+
+<form class="item" method="POST">
+{% csrf_token %}
+<p><strong>Pour supprimer un message </strong></p>
+<p>Message à supprimer :</p>
+<select class="button" name="message_a_supprimer"/>
+    {% for message in liste_messages %}
+      <option class="button" value="{{message.message_text}}">{{message.message_text}}</option>
+    {% endfor %}
+</select>
+<br></br>
+<input class="button cursor" type="submit" name="supprimer" value="Valider" />
+</form>
+
+<form class="item" method="POST">
+{% csrf_token %}
+<p><strong>Pour changer le message courant :</strong></p>
+<p>Nouveau message:</p>
+<select class="button" name="new_current_message"/>
+    {% for message in liste_messages %}
+      <option class="button" value="{{message.message_text}}">{{message.message_text}}</option>
+    {% endfor %}
+</select>
+<br></br>
+<input class="button cursor" type="submit" name="change" value="Changer le message courant" />
+</form>
+</div>
+
+<div class="link">
+<a  href="poste-radio/3">Aller sur le poste des Clandestins</a>
+<a  href="poste-radio/4">Aller sur le poste des Allemands</a>
+</div>
+
+<div class="align">
+<p><strong>Liste des messages des Résistants :</strong></p>
+{% for message in liste_message_resistant %}
+  <p>{{message.0}} a ajouté le message : "{{message.1}}"</p>
+{% endfor %}
+</div>

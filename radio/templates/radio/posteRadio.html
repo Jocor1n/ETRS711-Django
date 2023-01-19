@@ -1,0 +1,13 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'radio/test.css' %}">
+<h1>Poste de radio</h1>
+<h2>La radio que les {{group}} écoutent à la maison.</h2>
+<h3><strong>Le message courant qui est écouté est: </strong></h3>
+<h4>{{message_courant}}</h4>
+<div class="link">
+<a  href="/radio-londres">Aller sur la station de Radio Londres </a>
+</div>
+<h3>Les auditeurs de ce poste :</h3>
+<div class="color">
+<a href="/{{group}}">{{group}}</a>
+</div>

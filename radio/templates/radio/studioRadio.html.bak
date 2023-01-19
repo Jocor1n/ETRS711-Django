@@ -1,0 +1,27 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'radio/test.css' %}">
+<h1>Studio de Radio Londres</h1>
+<p>La radio qui parle aux Français.</p>
+<table border='1'>
+ <tr>
+    <th>Messages Courants</th>
+  </tr>
+  {% for mes in message_courant %}
+    <tr>
+	<td>{{ mes.messageCourant_text }}</td>
+  {% endfor %}
+</table>
+<br></br/>
+ 
+<form action="appel" method="POST">
+ {% csrf_token %} <!-- intègre template csrf_token pour protéger formulaire des attaques -->
+ <label draggable="true">Résistant : </label>
+ <input type="text" id="resistant" name="resistant" size="255" />
+ <br></br/>
+ <label>Message : </label>
+ <input type="text" id="message" name="message" size="255" />
+ <br></br>
+ <input type="submit" value="Diffuser un message" />
+</form>
+
+<a href="poste-radio/1/">Radio 1</a>
